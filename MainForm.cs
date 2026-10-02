@@ -71,6 +71,24 @@ namespace Modless
         private readonly ExternalEvent _exEvent;
         // 번호표에 적어 둔 할 일 (내 차례가 되면 실행됨)
         private Action<UIDocument, Document> _action;
+
+
+        //전역변수 정의
+        public static string m_floorTypeName = "";
+        public static string m_wallTypeName = "";
+        public static string m_ceilingTypeName = "";
+        public static string m_columnTypeName = "";
+        public static string m_wallHeight = "";
+        public static string m_ceilingHeight = "";
+
+        //바닥 벽 천장 생성기용 전역변수
+        public static bool m_isFloor = false;
+        public static bool m_isWall = false;
+        public static bool m_isCeiling = false;
+
+
+
+
         //
         public MainForm()
         {
@@ -87,9 +105,57 @@ namespace Modless
             RunRevit((uidoc, doc) =>
             {
                 // 할 일
-                TaskDialog.Show("Modless", "버튼 클릭! 내 차례!");
+                TaskDialog.Show("Modless", "바닥 생성!");
             });
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RunRevit((uidoc, doc) =>
+            {
+                // 할 일
+                TaskDialog.Show("Modless", "벽 생성!");
+            });
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RunRevit((uidoc, doc) =>
+            {
+                // 할 일
+                TaskDialog.Show("Modless", "천장 생성!");
+            });
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            RunRevit((uidoc, doc) =>
+            {
+                // 할 일
+                TaskDialog.Show("Modless", "기둥 생성!");
+            });
+        }
+        
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_floorTypeName = comboBox1.SelectedItem.ToString();
+        }
+
+        private void comboBox2_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            m_wallTypeName = comboBox4.SelectedItem.ToString();
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_ceilingTypeName = comboBox4.SelectedItem.ToString();
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_columnTypeName = comboBox4.SelectedItem.ToString();
+        }
+
 
 
         // ───────────── 아래는 수정할 필요 없습니다 ─────────────
@@ -150,5 +216,8 @@ namespace Modless
             _exEvent.Dispose();
             base.OnFormClosed(e);
         }
+
+
+
     }
 }
